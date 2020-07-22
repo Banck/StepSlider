@@ -88,14 +88,14 @@ void withoutCAAnimation(withoutAnimationBlock code)
     [self.layer addSublayer:_sliderCircleLayer];
     [self.layer addSublayer:_trackLayer];
     
-    _labelFont = [UIFont systemFontOfSize:15.f];
+    _labelFont = [UIFont systemFontOfSize:12.f];
     contentSize = self.bounds.size;
 }
 
 - (void)generalSetup
 {
     [self addLayers];
-    
+     
     if (_maxCount == 0) {
         _maxCount = 4;
     }
@@ -169,7 +169,6 @@ void withoutCAAnimation(withoutAnimationBlock code)
     
     CGRect contentFrame = CGRectMake(maxRadius, contentFrameY, contentWidth, sliderHeight);
     
-    CGFloat circleFrameSide = self.trackCircleRadius * 2.f;
     CGFloat sliderDiameter  = self.sliderCircleRadius * 2.f;
     
     CGPoint oldPosition = _sliderCircleLayer.position;
@@ -232,10 +231,10 @@ void withoutCAAnimation(withoutAnimationBlock code)
     
     NSTimeInterval animationTimeDiff = 0;
     if (indexDiff > 0) {
-        animationTimeDiff = (left ? [CATransaction animationDuration] : -[CATransaction animationDuration]) / indexDiff;   
+        animationTimeDiff = (left ? [CATransaction animationDuration] : -[CATransaction animationDuration]) / indexDiff;
     }
     NSTimeInterval animationTime = left ? animationTimeDiff : [CATransaction animationDuration] + animationTimeDiff;
-    CGFloat circleAnimation      = circleFrameSide / _trackLayer.frame.size.width;
+    CGFloat circleAnimation      = _trackCircleSize.width / _trackLayer.frame.size.width;
     
     for (NSUInteger i = 0; i < self.maxCount; i++) {
         CAShapeLayer *trackCircle;
@@ -257,12 +256,12 @@ void withoutCAAnimation(withoutAnimationBlock code)
         }
         
         
-        trackCircle.bounds   = CGRectMake(0.f, 0.f, circleFrameSide, circleFrameSide);
+        trackCircle.bounds   = CGRectMake(0.f, 0.f, _trackCircleSize.width, _trackCircleSize.height);
         trackCircle.position = CGPointMake(contentFrame.origin.x + stepWidth * i, CGRectGetMidY(contentFrame));
         
         CGImageRef trackCircleImage = [self trackCircleImage:trackCircle];
-        if (!trackCircleImage) {
-            trackCircle.path = [UIBezierPath bezierPathWithRoundedRect:trackCircle.bounds cornerRadius:circleFrameSide / 2].CGPath;
+        if (!trackCircleImage && _trackCircleRadius > 0) {
+            trackCircle.path = [UIBezierPath bezierPathWithRoundedRect:trackCircle.bounds cornerRadius:_trackCircleRadius].CGPath;
             trackCircle.contents = nil;
         } else {
             trackCircle.path = NULL;

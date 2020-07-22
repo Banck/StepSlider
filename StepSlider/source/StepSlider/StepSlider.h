@@ -50,9 +50,16 @@ IB_DESIGNABLE
 @property (nonatomic) IBInspectable CGFloat trackHeight;
 
 /**
- *  Radius of the default dots on slider track.
+ *  Size of the default dots on slider track.
  */
+@property (nonatomic) IBInspectable CGSize trackCircleSize;
+
+/**
+*  Radius of the default dots on slider track.
+*/
+
 @property (nonatomic) IBInspectable CGFloat trackCircleRadius;
+
 
 /**
  *  Radius of the slider main wheel.
@@ -108,7 +115,7 @@ IB_DESIGNABLE
 @property (nonatomic) StepSliderTextOrientation labelOrientation;
 
 /**
- *  If `YES` adjust first and last labels to StepSlider frame. And change alingment to left and right. 
+ *  If `YES` adjust first and last labels to StepSlider frame. And change alingment to left and right.
  *  Otherwise label position is same as trackCircle, and aligment always is center.
  */
 @property (nonatomic) IBInspectable BOOL adjustLabel;
