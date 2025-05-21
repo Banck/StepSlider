@@ -362,7 +362,7 @@ void withoutCAAnimation(withoutAnimationBlock code)
                                                           context:nil].size.height;
             labelHeight = fmax(ceil(height), labelHeight);
         }
-        return labelHeight + 5;
+        return labelHeight + 10;
     }
     
     return 0;
